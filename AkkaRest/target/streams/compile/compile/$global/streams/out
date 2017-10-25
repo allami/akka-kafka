@@ -1,5 +1,0 @@
-[0m[[0m[33mwarn[0m] [0m[0m/opt/mappear_repo/AkkaRest/src/main/scala/com/akka/RestService.scala:19:17: imported `Retry' is permanently hidden by definition of object Retry in package akka[0m
-[0m[[0m[33mwarn[0m] [0m[0mimport com.akka.Retry[0m
-[0m[[0m[33mwarn[0m] [0m[0m                ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mthere was one feature warning; re-run with -feature for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
