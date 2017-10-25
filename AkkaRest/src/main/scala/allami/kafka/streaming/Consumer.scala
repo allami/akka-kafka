@@ -72,38 +72,8 @@ object Consumer  extends  App with LazyLogging {
 
   val streams: KafkaStreams = new KafkaStreams(builder, config)
   streams.start()
-  var timeFrom = 0L
-  var search=1507099934000L
   new RestService(streams).start()
-  /*
-
-  while(true){
-
-    Thread.sleep(600L)
-    try {
-
-      val store: ReadOnlyWindowStore[String, Long] = streams.store("errors_par_minute", QueryableStoreTypes.windowStore[String, Long]())
-
-      val timeTo = System.currentTimeMillis
-
-      val iterator = store.fetch((search).toString, timeFrom, timeTo)
-      var count=0L
-      while ( {iterator.hasNext}) {
-        val next = iterator.next
-        count=next.value
-      }
-      search=search+1000L
-      println(count)
-
-    }catch {
-
-      case ioe: InvalidStateStoreException =>println("error")
-
-    }
-  }
-  */
-
-
+  
 
   Runtime.getRuntime.addShutdownHook(new Thread() {
     override def run(): Unit = {
