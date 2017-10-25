@@ -36,10 +36,6 @@ object Consumer  extends  App with LazyLogging {
 
   import allami.HttpRest._
 
-  case class Person(firstName: String, lastName: String, age: Int)
-
-
-
   val builder = new KStreamBuilder()
   val sourceStream = builder.stream("data")
   val config = allami.kafka.streaming.Config.config
