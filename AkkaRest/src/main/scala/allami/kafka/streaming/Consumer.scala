@@ -18,7 +18,6 @@ import allami.HttpRest._
 import com.akka.RestService
 import org.apache.kafka.streams.errors.InvalidStateStoreException
 import org.apache.kafka.streams.state.{QueryableStoreTypes, ReadOnlyKeyValueStore, ReadOnlyWindowStore}
-case class Person(firstName: String, lastName: String, age: Int)
 
 object Consumer  extends  App with LazyLogging {
 
