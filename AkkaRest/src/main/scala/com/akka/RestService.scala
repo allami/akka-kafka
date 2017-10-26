@@ -39,13 +39,15 @@ class RestService(val streams: KafkaStreams) {
   var timeFrom = 0L
 
 
-  implicit val system = ActorSystem("rating-system")
+  private def to = {timeFrom = timeTo; search}
+
+  val timeTo = System.currentTimeMillis
+  implicit val system = ActorSystem("logs-system")
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
  private var search =1507099934000L
   private def inc = {search += 1000L; search}
-
   def start(): Unit = {
 
     val route =
@@ -57,7 +59,7 @@ class RestService(val streams: KafkaStreams) {
 
             future = fetchCountErrors()
 
-            val countings = Await.result(future, 8 seconds)
+            val countings = Await.result(future, 9 seconds)
 
             complete(countings.toString)
           }
@@ -97,9 +99,9 @@ class RestService(val streams: KafkaStreams) {
 
           val store: ReadOnlyWindowStore[String, Long] = streams.store("errors_par_minute", QueryableStoreTypes.windowStore[String, Long]())
 
-          val timeTo = System.currentTimeMillis
 
-          val iterator = store.fetch((inc).toString, timeFrom, timeTo)
+
+          val iterator = store.fetch((inc).toString, to, timeTo)
 
           while ( {
             iterator.hasNext
@@ -108,7 +110,7 @@ class RestService(val streams: KafkaStreams) {
             count = next.value
             p.success(count)
           }
-         // search = search + 1000L
+
           println(search)
 
         } catch {
